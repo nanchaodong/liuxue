@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+
+        <variable
+            name="news"
+            type="com.wolf.liuxue.bean.New"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/d5">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/d90"
+            android:scaleType="centerCrop"
+            app:imageUrl="@{news.advertUrl}"/>
+
+        <TextView
+            style="@style/common_text_size_color"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{news.title}"
+            />
+
+    </LinearLayout>
+
+</layout>

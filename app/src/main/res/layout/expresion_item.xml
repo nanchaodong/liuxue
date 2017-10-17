@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+
+        <variable
+            name="presenter"
+            type="com.wolf.liuxue.presenter.PresenterClick"/>
+
+        <variable
+            name="expression"
+            type="com.wolf.liuxue.bean.ExpressionBean"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/expression_item_bg_selector"
+        android:gravity="center"
+        android:onClick="@{()->presenter.click(expression)}"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/d20"
+        android:paddingBottom="@dimen/d20"
+       >
+
+        <ImageView
+            android:layout_width="@dimen/d30"
+            android:layout_height="@dimen/d30"
+            android:scaleType="fitXY"
+            app:imageUrl="@{expression.mipmap}"/>
+    </LinearLayout>
+
+</layout>

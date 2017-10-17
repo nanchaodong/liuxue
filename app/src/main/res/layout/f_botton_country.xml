@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <data>
+        <variable
+            name="presenter"
+            type="com.wolf.liuxue.presenter.PresenterClick"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/common_text_size_color"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/d10"
+            android:layout_marginTop="@dimen/d10"
+            android:text="@string/text_please_choose_question_type"/>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/d0"
+            android:layout_marginBottom="@dimen/d10"
+            android:layout_marginTop="@dimen/d10"
+            android:layout_weight="1"
+            android:overScrollMode="never"/>
+
+        <LinearLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/d30"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tab1"
+                android:layout_width="@dimen/d10"
+                android:layout_height="@dimen/d10"
+                android:onClick="@{()->presenter.click(0)}"
+                android:background="@drawable/circle_bg_seletor"/>
+
+            <TextView
+                android:id="@+id/tab2"
+                android:layout_width="@dimen/d10"
+                android:layout_height="@dimen/d10"
+                android:onClick="@{()->presenter.click(1)}"
+                android:layout_marginLeft="@dimen/d20"
+                android:background="@drawable/circle_bg_seletor"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</layout>

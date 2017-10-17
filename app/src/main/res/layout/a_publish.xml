@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <data>
+
+        <variable
+            name="presenter"
+            type="com.wolf.liuxue.presenter.PresenterClick"/>
+    </data>
+
+    <com.wolf.liuxue.view.ResizeRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        >
+
+        <EditText
+            android:id="@+id/edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="@string/text_please_input_your_question"
+            android:paddingLeft="@dimen/d10"
+            android:paddingRight="@dimen/d10"
+            android:paddingTop="@dimen/d10"
+            android:textSize="@dimen/s_12"
+            android:textColorHint="@color/color_cecece"
+            android:textColor="@color/color_676767"
+            />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_text"/>
+
+
+        <FrameLayout
+            android:id="@+id/emojlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:id="@+id/bottom_cotrol"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/emojlayout"
+            android:layout_alignWithParentIfMissing="true"
+            android:background="@color/color_34cecece"
+            android:padding="@dimen/d10"
+            >
+
+            <ImageView
+                android:id="@+id/imagePic"
+                android:layout_width="@dimen/d20"
+                android:layout_height="@dimen/d20"
+                android:onClick="@{()->presenter.click(0)}"
+                android:src="@drawable/icon_choose_pic_select"
+                />
+
+            <ImageView
+                android:id="@+id/imageEmoji"
+                android:layout_width="@dimen/d20"
+                android:layout_height="@dimen/d20"
+                android:layout_marginLeft="@dimen/d10"
+                android:onClick="@{()->presenter.click(1)}"
+                android:src="@drawable/icon_emoji_select"
+                />
+
+            <ImageView
+                android:id="@+id/imageCountry"
+                android:layout_width="@dimen/d20"
+                android:layout_height="@dimen/d20"
+                android:layout_marginLeft="@dimen/d10"
+                android:onClick="@{()->presenter.click(2)}"
+                android:src="@drawable/icon_choose_country_select"
+                />
+        </LinearLayout>
+
+
+    </com.wolf.liuxue.view.ResizeRelativeLayout>
+
+</layout>

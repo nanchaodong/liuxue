@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+
+        <variable
+            name="image"
+            type="com.wolf.liuxue.bean.Image"/>
+        <variable
+            name="presenter"
+            type="com.wolf.liuxue.presenter.PresenterClick"/>
+
+        <import type="android.view.View"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/d3"
+        >
+
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:localPath="@{image.path}"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            app:imageSelect="@{image.select}"
+            android:onClick="@{()->presenter.click(image)}"
+            android:src="@drawable/image_item_seletor"/>
+    </RelativeLayout>
+
+</layout>

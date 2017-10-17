@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="news"
+            type="com.wolf.liuxue.bean.New"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/d1"
+            android:layout_marginLeft="@dimen/d5"
+            android:layout_marginRight="@dimen/d5"
+            android:background="@color/color_33cecece"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/d5"
+            android:paddingLeft="@dimen/d5"
+            android:paddingRight="@dimen/d5"
+            android:paddingTop="@dimen/d5">
+
+            <ImageView
+                android:layout_width="@dimen/d125"
+                android:layout_height="@dimen/d80"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{news.advertUrl}"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/d10">
+
+                <TextView
+                    style="@style/common_text_size_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{news.title}"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</layout>

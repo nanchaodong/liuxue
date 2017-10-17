@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TabView">
+        <attr name="text" format="string"/>
+        <attr name="image" format="integer"/>
+        <attr name="selected" format="boolean"/>
+        <attr name="position" format="integer"/>
+    </declare-styleable>
+</resources>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="presenter"
+            type="com.wolf.liuxue.presenter.PresenterClick"/>
+        <variable
+            name="block"
+            type="com.wolf.liuxue.bean.Block"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:onClick="@{()->presenter.click(block)}"
+        android:orientation="vertical"
+        >
+
+        <ImageView
+            android:layout_width="@dimen/d40"
+            android:layout_height="@dimen/d40"
+            android:scaleType="fitXY"
+            app:imageUrl="@{block.headUrl}"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/d10"
+            android:text="@{block.title}"
+            android:textSize="@dimen/s_12"/>
+    </LinearLayout>
+
+</layout>

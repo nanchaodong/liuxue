@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/d0"
+            android:layout_weight="1"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/d50"
+            android:background="@drawable/bottom_bg_shape"
+            android:orientation="horizontal">
+
+            <com.wolf.liuxue.view.TabView
+                android:id="@+id/tabView0"
+                android:layout_width="@dimen/d0"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:image="@drawable/icon_home_seletor"
+                app:position="0"
+                app:selected="true"
+                app:text="@string/text_home"/>
+
+            <com.wolf.liuxue.view.TabView
+                android:id="@+id/tabView1"
+                android:layout_width="@dimen/d0"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:image="@drawable/icon_recommend_selector"
+                app:position="1"
+                app:text="@string/text_recommed"/>
+
+            <com.wolf.liuxue.view.TabView
+                android:id="@+id/tabView2"
+                android:layout_width="@dimen/d0"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:image="@drawable/icon_class_seletor"
+                app:position="2"
+                app:text="@string/text_class"/>
+
+            <com.wolf.liuxue.view.TabView
+                android:id="@+id/tabView3"
+                android:layout_width="@dimen/d0"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:image="@drawable/icon_tools_seletor"
+                app:position="3"
+                app:text="@string/text_tools"/>
+
+            <com.wolf.liuxue.view.TabView
+                android:id="@+id/tabView4"
+                android:layout_width="@dimen/d0"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:image="@drawable/icon_mine_seletor"
+                app:position="4"
+                app:text="@string/text_apply"/>
+        </LinearLayout>
+    </LinearLayout>
+</layout>

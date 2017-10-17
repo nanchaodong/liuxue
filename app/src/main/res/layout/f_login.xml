@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+
+        <variable
+            name="presenter"
+            type="com.wolf.liuxue.presenter.PresenterClick"/>
+        <variable
+            name="user"
+            type="com.wolf.liuxue.bean.User"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/header_image"
+            android:layout_width="@dimen/d66"
+            android:layout_height="@dimen/d66"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/d66"
+            app:headUrl="@{user.imageUrl}"
+            />
+
+        <EditText
+            android:id="@+id/phone_edit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/d40"
+            android:layout_below="@+id/header_image"
+            android:layout_marginLeft="@dimen/d20"
+            android:layout_marginRight="@dimen/d20"
+            android:textSize="@dimen/s_10"
+            android:layout_marginTop="@dimen/d20"
+            android:text="@{user.username}"
+            />
+
+        <EditText
+            android:id="@+id/password_edit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/d40"
+            android:layout_below="@+id/phone_edit"
+            android:layout_marginLeft="@dimen/d20"
+            android:layout_marginRight="@dimen/d20"
+            android:textSize="@dimen/s_10"
+            android:layout_marginTop="@dimen/d20"
+            />
+
+        <Button
+            android:id="@+id/login_btn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/d50"
+            android:layout_below="@id/password_edit"
+            android:layout_marginTop="@dimen/d20"
+            android:background="@color/color_1ba0d2"
+            android:onClick="@{()->presenter.click()}"
+            android:text="@string/text_login"
+            android:textColor="@color/color_ffffff"
+            android:textSize="@dimen/s_20"/>
+    </RelativeLayout>
+
+</layout>

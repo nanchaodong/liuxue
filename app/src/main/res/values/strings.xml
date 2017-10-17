@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Liuxue</string>
+    <string name="text_login">登录</string>
+    <string name="msg_phone_is_not_empty">手机号不能为空</string>
+    <string name="text_home">首页</string>
+    <string name="text_recommed">推荐</string>
+    <string name="text_class">院校库</string>
+    <string name="text_tools">工具</string>
+    <string name="text_apply">申请进度</string>
+    <string name="text_please_choose_country_type">请选择国家分类</string>
+    <string name="text_publish">提问</string>
+    <string name="text_publish_article">发布</string>
+    <string name="text_please_input_your_question">请输入你的留学问题</string>
+    <string name="text_please_choose_question_type">请选择问题分类</string>
+    <string name="text_please_choose_block">请选择版块</string>
+    <string name="text_picture">图片</string>
+    <string name="text_complete">完成</string>
+</resources>
