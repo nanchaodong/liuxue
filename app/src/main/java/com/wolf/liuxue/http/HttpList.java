@@ -9,6 +9,7 @@ import com.wolf.liuxue.adapter.FooterRecyclerAdapter;
 import com.wolf.liuxue.bean.JResult;
 import com.wolf.liuxue.bean.PagerList;
 import com.wolf.liuxue.presenter.PresentImpl;
+import com.wolf.liuxue.view.RefreshRecyclerView;
 
 import java.util.List;
 
@@ -22,46 +23,46 @@ import rx.Subscriber;
 public class HttpList<T extends PresentImpl> {
     private static final String TAG = "HttpList";
     private ApiBody apiBody;
-    private RecyclerView recyclerView;
-    private SwipeRefreshLayout refreshLayout;
+    private RefreshRecyclerView rView;
     private Context context;
     private FooterRecyclerAdapter mAdapter;
     private GridLayoutManager manager;
     private boolean loading;
 
     public HttpList(Context context, ApiBody apiBody,
-                    RecyclerView recyclerView, SwipeRefreshLayout refreshLayout,
+                    RecyclerView recyclerView,
                     int span) {
         this.apiBody = apiBody;
-        this.recyclerView = recyclerView;
-        this.refreshLayout = refreshLayout;
+        this.rView = (RefreshRecyclerView) recyclerView;
         this.context = context;
         this.mAdapter = new FooterRecyclerAdapter(context);
-        this.recyclerView.setAdapter(this.mAdapter);
+        this.rView.setAdapter(this.mAdapter);
         manager = new GridLayoutManager(context, span);
-        this.recyclerView.setLayoutManager(manager);
-        refreshLayout.setEnabled(false);
+        rView.setCanRfresh(false);
+        rView.setManager(manager);
     }
-    public void clear(){
+
+    public void clear() {
         mAdapter.clear();
     }
 
     public void loadTop(Observable<JResult<PagerList<List<T>>>> observable) {
-        refreshLayout.setRefreshing(true);
+        rView.setCanRfresh(true);
         observable.compose(RxHelper.<T>handleList()).subscribe(new Subscriber<List<T>>() {
             @Override
             public void onCompleted() {
-                refreshLayout.setRefreshing(false);
+
             }
 
             @Override
             public void onError(Throwable e) {
-                refreshLayout.setRefreshing(false);
+                rView.fail();
 
             }
 
             @Override
             public void onNext(List<T> list) {
+                rView.suc();
                 mAdapter.addData(list);
                 apiBody.addStartIndex(list.size());
             }
@@ -72,7 +73,6 @@ public class HttpList<T extends PresentImpl> {
         observable.compose(RxHelper.<T>handleList()).subscribe(new Subscriber<List<T>>() {
             @Override
             public void onCompleted() {
-                refreshLayout.setRefreshing(false);
                 loading = false;
                 mAdapter.setFooter(3);
 
@@ -80,7 +80,7 @@ public class HttpList<T extends PresentImpl> {
 
             @Override
             public void onError(Throwable e) {
-                refreshLayout.setRefreshing(false);
+                rView.fail();
                 loading = false;
                 mAdapter.setFooter(1);
 
@@ -88,6 +88,7 @@ public class HttpList<T extends PresentImpl> {
 
             @Override
             public void onNext(List<T> list) {
+                rView.suc();
                 mAdapter.addMoreData(list);
                 apiBody.addStartIndex(mAdapter.getSize());
 
@@ -97,12 +98,12 @@ public class HttpList<T extends PresentImpl> {
 
 
     public HttpList setRefresh() {
-        refreshLayout.setEnabled(true);
-        refreshLayout.setOnRefreshListener(refreshListener);
+        rView.setCanRfresh(true);
+        rView.setListener(refreshListener);
         return this;
     }
 
-    private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+    private RefreshRecyclerView.RefreshListener refreshListener = new RefreshRecyclerView.RefreshListener() {
         @Override
         public void onRefresh() {
             if (listener != null) {
@@ -112,8 +113,9 @@ public class HttpList<T extends PresentImpl> {
         }
     };
 
+
     public HttpList setloadRefresh() {
-        recyclerView.addOnScrollListener(scrollListener);
+        rView.addOnScrollListener(scrollListener);
         return this;
     }
 

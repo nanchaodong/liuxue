@@ -7,6 +7,7 @@ import com.wolf.liuxue.base.BaseRecyclerAdapter;
 import com.wolf.liuxue.base.BaseRecyclerHolder;
 import com.wolf.liuxue.bean.HeaderItem;
 import com.wolf.liuxue.databinding.HeaderItemBinding;
+import com.wolf.liuxue.utils.ViewUtils;
 
 /**
  * Created by nanchaodong on 2017/10/16.
@@ -22,5 +23,11 @@ public class HeaderItemHolder extends BaseRecyclerHolder<HeaderItem, HeaderItemB
         bindView.setHeaderItem(model);
         AnimationDrawable drawable = (AnimationDrawable) bindView.image.getDrawable();
         drawable.start();
+        bindView.header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewUtils.showMsg("header");
+            }
+        });
     }
 }

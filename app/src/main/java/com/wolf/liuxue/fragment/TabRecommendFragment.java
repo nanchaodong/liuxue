@@ -44,7 +44,7 @@ public class TabRecommendFragment extends BindFragment<FTabRecommendBinding> imp
         super.onActivityCreated(savedInstanceState);
         showTitle(R.string.text_recommed);
         apiBody = new ApiBody();
-        httpDataList = new HttpDataList<>(getActivity(), bindView.recyclerView, bindView.swipe, 1)
+        httpDataList = new HttpDataList<>(getActivity(), bindView.recyclerView, 1)
                 .setRefresh()
                 .setTopListener(this);
         httpDataList.loadTop(Api.getDefault().getNewsHome(apiBody.getBodyMap()));

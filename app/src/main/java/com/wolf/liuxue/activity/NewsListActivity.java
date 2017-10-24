@@ -42,7 +42,7 @@ public class NewsListActivity extends BindActivity<ANewListBinding> implements H
         apiBody.addCatId(newGroup.getCatId());
         apiBody.addStartIndex(0);
         apiBody.addPageSize(20);
-        list = new HttpList<>(this,apiBody,bindView.recyclerView,bindView.swipe,1);
+        list = new HttpList<>(this,apiBody,bindView.recyclerView,1);
         list.setRefresh().setloadRefresh().setListener(this);
         list.loadTop(Api.getDefault().getNewsList(apiBody.getBodyMap()));
         Api.getDefault().getNewsLists(apiBody.getBodyMap()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new HttpSubscriber<ResponseBody>(){

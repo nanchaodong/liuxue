@@ -32,6 +32,7 @@ public class RefreshRecyclerView extends RecyclerView {
     private BaseRecyclerAdapter mAdapter;
     private HeaderItem headerItem;
     private RefreshListener listener;
+    private boolean canRfresh = true;
 
     public void setListener(RefreshListener listener) {
         this.listener = listener;
@@ -70,7 +71,7 @@ public class RefreshRecyclerView extends RecyclerView {
         setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
-                if (itemBinding != null && listener != null) {
+                if (itemBinding != null && listener != null && canRfresh) {
 
                     if (mAdapter == null || headerItem == null) {
                         Adapter adapter = RefreshRecyclerView.this.getAdapter();
@@ -127,27 +128,41 @@ public class RefreshRecyclerView extends RecyclerView {
     }
 
 
-    public void setManager(GridLayoutManager manager) {
+    public void setManager(final GridLayoutManager manager) {
         this.manager = manager;
+        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (position == 0) {
+                    return manager.getSpanCount();
+                }
+                return 1;
+            }
+        });
         this.setLayoutManager(manager);
+
     }
 
     private void replyImage() {
-        final LinearLayout.LayoutParams headerLp = (LinearLayout.LayoutParams) itemBinding.header.getLayoutParams();
-        final float top = ((LinearLayout.LayoutParams) itemBinding.header.getLayoutParams()).topMargin;
-        final float newTop = -context.getResources().getDimensionPixelOffset(R.dimen.d100);
-        // 设置动画
-        final ValueAnimator anim = ObjectAnimator.ofFloat(0.0F, 1.0F).setDuration(200);
+        if (itemBinding != null) {
 
-        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                float cVal = (Float) animation.getAnimatedValue();
-                headerLp.topMargin = (int) (top - (top - newTop) * cVal);
-                itemBinding.header.setLayoutParams(headerLp);
-            }
-        });
-        anim.start();
+            final LinearLayout.LayoutParams headerLp = (LinearLayout.LayoutParams) itemBinding.header.getLayoutParams();
+            final float top = ((LinearLayout.LayoutParams) itemBinding.header.getLayoutParams()).topMargin;
+            final float newTop = -context.getResources().getDimensionPixelOffset(R.dimen.d100);
+            // 设置动画
+            final ValueAnimator anim = ObjectAnimator.ofFloat(0.0F, 1.0F).setDuration(200);
+
+            anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    float cVal = (Float) animation.getAnimatedValue();
+                    headerLp.topMargin = (int) (top - (top - newTop) * cVal);
+                    itemBinding.header.setLayoutParams(headerLp);
+                }
+            });
+            anim.start();
+        }
+
     }
 
     public interface RefreshListener {
@@ -155,12 +170,20 @@ public class RefreshRecyclerView extends RecyclerView {
     }
 
     public void suc() {
-        headerItem.setStatus(HeaderItem.Anim.COMPLETE.ordinal());
+        if (headerItem != null) {
+            headerItem.setStatus(HeaderItem.Anim.COMPLETE.ordinal());
+        }
         replyImage();
     }
 
     public void fail() {
-        headerItem.setStatus(HeaderItem.Anim.FAIL.ordinal());
+        if (headerItem != null) {
+            headerItem.setStatus(HeaderItem.Anim.FAIL.ordinal());
+        }
         replyImage();
+    }
+
+    public void setCanRfresh(boolean canRfresh) {
+        this.canRfresh = canRfresh;
     }
 }

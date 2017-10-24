@@ -34,7 +34,7 @@ public class TabHotFragment extends TopNoFragment<FTabHotBinding> implements Htt
         apiBody.addStartIndex(0);
         apiBody.addPageSize(20);
         apiBody.addTimeOrder();
-        httpList = new HttpList<>(getActivity(), apiBody, bindView.recyclerView, bindView.swipe, 1)
+        httpList = new HttpList<>(getActivity(), apiBody, bindView.recyclerView,  1)
                 .setRefresh()
                 .setloadRefresh();
         httpList.setListener(this);

@@ -3,11 +3,14 @@ package com.wolf.liuxue.fragment;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.LinearLayout;
 
 import com.wolf.liuxue.R;
@@ -49,25 +52,26 @@ public class TabMineFragment extends BindFragment<FTabMineBinding> {
         super.onActivityCreated(savedInstanceState);
         showTitle(R.string.text_apply);
         list = new ArrayList<>();
-        list.add(new HeaderItem());
         for (int i = 0; i < 10; i++) {
             list.add(new TestBean(i + "南朝东"));
         }
         mAdapter = new BaseRecyclerAdapter(getActivity());
         bindView.recyclerView.setAdapter(mAdapter);
-        manager = new GridLayoutManager(getActivity(), 1);
+        manager = new GridLayoutManager(getActivity(), 2);
         bindView.recyclerView.setManager(manager);
+//        LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(getActivity(), R.anim.layout_animation_fall_down);
+//        bindView.recyclerView.setLayoutAnimation(controller);
         mAdapter.addData(list);
         bindView.recyclerView.setListener(new RefreshRecyclerView.RefreshListener() {
             @Override
             public void onRefresh() {
-                Log.i(TAG, "onRefresh: " + "aaaaaaaaaaaaaaaaa");
                 Observable.timer(3000, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
                         .subscribeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Subscriber<Long>() {
                             @Override
                             public void onCompleted() {
-
+//                                mAdapter.addData(list);
+//                                bindView.recyclerView.scheduleLayoutAnimation();
                             }
 
                             @Override
@@ -82,6 +86,8 @@ public class TabMineFragment extends BindFragment<FTabMineBinding> {
                         });
             }
         });
+
+
     }
 
 

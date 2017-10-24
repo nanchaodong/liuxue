@@ -9,6 +9,7 @@ import android.util.Log;
 import com.wolf.liuxue.adapter.FooterRecyclerAdapter;
 import com.wolf.liuxue.bean.JResult;
 import com.wolf.liuxue.presenter.PresentImpl;
+import com.wolf.liuxue.view.RefreshRecyclerView;
 
 import java.util.List;
 
@@ -22,29 +23,27 @@ import rx.Subscriber;
 public class HttpDataList<T> {
     private static final String TAG = "HttpDataList";
     private Context context;
-    private RecyclerView recyclerView;
-    private SwipeRefreshLayout refreshLayout;
+    private RefreshRecyclerView rView;
     private int span;
     private FooterRecyclerAdapter mAdapter;
     private GridLayoutManager manager;
 
 
-    public HttpDataList(Context context, RecyclerView recyclerView, SwipeRefreshLayout refreshLayout, int span) {
+    public HttpDataList(Context context, RecyclerView recyclerView, int span) {
         this.context = context;
-        this.recyclerView = recyclerView;
-        this.refreshLayout = refreshLayout;
+        this.rView = (RefreshRecyclerView) recyclerView;
         this.span = span;
         mAdapter = new FooterRecyclerAdapter(context);
         recyclerView.setAdapter(mAdapter);
         manager = new GridLayoutManager(context, span);
-        recyclerView.setLayoutManager(manager);
-        refreshLayout.setEnabled(false);
+        rView.setManager(manager);
+        rView.setCanRfresh(false);
 
     }
 
     public HttpDataList setRefresh() {
-        refreshLayout.setEnabled(true);
-        refreshLayout.setOnRefreshListener(refreshListener);
+        rView.setCanRfresh(true);
+        rView.setListener(refreshListener);
         return this;
     }
 
@@ -53,11 +52,12 @@ public class HttpDataList<T> {
         return this;
 
     }
-    public FooterRecyclerAdapter getAdapter(){
+
+    public FooterRecyclerAdapter getAdapter() {
         return mAdapter;
     }
 
-    private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+    private RefreshRecyclerView.RefreshListener refreshListener = new RefreshRecyclerView.RefreshListener() {
         @Override
         public void onRefresh() {
             if (listener != null) {
@@ -66,25 +66,26 @@ public class HttpDataList<T> {
         }
     };
 
+
     public void loadTop(Observable<JResult<T>> observable) {
-        refreshLayout.setRefreshing(true);
+        rView.setCanRfresh(true);
 
         observable.compose(RxHelper.<T>handleResult()).subscribe(new Subscriber<T>() {
             @Override
             public void onCompleted() {
-                refreshLayout.setRefreshing(false);
             }
 
             @Override
             public void onError(Throwable e) {
-                refreshLayout.setRefreshing(false);
+                rView.fail();
                 Log.i(TAG, "onError: " + e.getMessage());
 
             }
 
             @Override
             public void onNext(T t) {
-                if (listener != null){
+                rView.suc();
+                if (listener != null) {
                     listener.result(t);
                 }
 
