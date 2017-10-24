@@ -3,7 +3,6 @@ package com.wolf.liuxue.view;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -40,37 +39,34 @@ public class RefreshRecyclerView extends RecyclerView {
 
     public RefreshRecyclerView(Context context) {
         super(context);
-        initItemDecoration(context);
+        initRefreshHeader(context);
     }
 
     public RefreshRecyclerView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        initItemDecoration(context);
+        initRefreshHeader(context);
     }
 
     public RefreshRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        initItemDecoration(context);
+        initRefreshHeader(context);
     }
 
-    private void initItemDecoration(final Context context) {
+    private void initRefreshHeader(final Context context) {
         this.context = context;
-        this.addItemDecoration(new ItemDecoration() {
-            @Override
-            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, State state) {
-                super.getItemOffsets(outRect, view, parent, state);
-                RecyclerView.ViewHolder holder = parent.findViewHolderForLayoutPosition(0);
-                if (holder != null) {
-                    if (holder instanceof HeaderItemHolder) {
-                        HeaderItemHolder headerItemHolder = (HeaderItemHolder) holder;
-                        itemBinding = headerItemHolder.getBindView();
-                    }
-                }
-            }
-        });
+
         setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
+                if (itemBinding == null) {
+                    RecyclerView.ViewHolder holder = RefreshRecyclerView.this.findViewHolderForLayoutPosition(0);
+                    if (holder != null) {
+                        if (holder instanceof HeaderItemHolder) {
+                            HeaderItemHolder headerItemHolder = (HeaderItemHolder) holder;
+                            itemBinding = headerItemHolder.getBindView();
+                        }
+                    }
+                }
                 if (itemBinding != null && listener != null && canRfresh) {
 
                     if (mAdapter == null || headerItem == null) {
